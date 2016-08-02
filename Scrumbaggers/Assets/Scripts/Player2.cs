@@ -20,9 +20,14 @@ public class Player2 : MovingObject
      public AudioClip gameOverSound;
 
      private Animator animator;
+     private GameObject turnIndicator;
      private int food;
      private int scraps;
 
+     void Awake()
+     {
+          turnIndicator = GameObject . Find ( "TurnIndicator2" );
+     }
 	protected override void Start ()
      {
           animator = GetComponent<Animator> ( );
@@ -43,7 +48,13 @@ public class Player2 : MovingObject
 
 	void Update ()
      {
-          if ( !GameManager . instance . player2Turn ) return;
+          if ( !GameManager . instance . player2Turn )
+          {
+               turnIndicator . SetActive ( false );
+               return;
+          }
+
+          turnIndicator . SetActive ( true );
 
           int horizontal = 0;
           int vertical = 0;
