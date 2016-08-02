@@ -112,6 +112,10 @@ public class Player : MovingObject
                SoundManager . instance . RandomizeSfx ( drinkSound1 , drinkSound2 );
                other . gameObject . SetActive ( false );
           }
+          else if (other.tag == "Stones")
+          {
+               other . gameObject . SetActive ( false );
+          }
      }
 
      protected override void OnCantMove <T> (T component)

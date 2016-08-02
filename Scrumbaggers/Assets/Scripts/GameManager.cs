@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
      private Text levelText;
      private GameObject levelImage;
-     private int level = 1;
+     private int level = 20;
      private List<Enemy> enemies;
      private List<Enemy2> enemies2;
      private bool enemy1Moving;

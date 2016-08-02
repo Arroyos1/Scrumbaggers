@@ -18,13 +18,14 @@ public class BoardManager : MonoBehaviour
           }
      }
 
-     public int columns = 16;
-     public int rows = 8;
+     public int columns = 19;
+     public int rows = 9;
 
      public Count wallCount = new Count (8, 12);
      public Count foodCount = new Count ( 2 , 6 );
 
      public GameObject exit;
+     public GameObject stones;
      public GameObject [ ] floorTiles;
      public GameObject [ ] wallTiles;
      public GameObject [ ] outerWallTiles;
@@ -34,6 +35,8 @@ public class BoardManager : MonoBehaviour
 
      private Transform boardHolder;
      private List <Vector3> gridPositions = new List <Vector3> ( );  //requires System.Collections.Generic
+     private List<Vector3> stonePositions = new List<Vector3> ( );
+
      
      /// <summary>
      /// Called in SetupScene() clears the current List, goes through each potentioal gridposition and adds to list
@@ -51,6 +54,18 @@ public class BoardManager : MonoBehaviour
           }
      }
 
+     void InitializeLocationList()
+     {
+          stonePositions . Clear ( );
+          for ( int x = 3 ; x < columns - 3 ; x++ )
+          {
+               for ( int y = 3 ; y < rows - 3 ; y++ )
+               {
+                    stonePositions . Add ( new Vector3 ( x , y , 0f ) );
+               }
+          }
+
+     }
      /// <summary>
      /// Called in SetupScene() Creates an Empty Gameobject in Heirarchy to hold the instantiated floor and wall tiles that make up the board
      /// </summary>
@@ -87,6 +102,13 @@ public class BoardManager : MonoBehaviour
           return randomPosition;
      }
 
+     Vector3 RandomStonePosition ( )
+     {
+          int randomIndex = Random . Range ( 0 , stonePositions . Count );
+          Vector3 randomPosition = stonePositions [ randomIndex ];
+          return randomPosition;
+     }
+
      /// <summary>
      /// Selects a random object from the gameobject array and instantiates it at the random position returned from RandomPosition()
      /// </summary>
@@ -105,6 +127,13 @@ public class BoardManager : MonoBehaviour
           }
      }
 
+     void LayoutStoneAtRandom ( )
+     {
+          Vector3 randomPosition = RandomStonePosition ( );
+          Instantiate ( stones , randomPosition , Quaternion . identity);
+     }
+
+
      /// <summary>
      /// Calls Above Functions and adds the exit tile
      /// Called from GameManager InitGame() passing the level variable to it
@@ -114,6 +143,7 @@ public class BoardManager : MonoBehaviour
      {
           BoardSetup ( );
           InitialiseList ( );
+          InitializeLocationList ( );
 
           LayoutObjectAtRandom ( wallTiles , wallCount . minimum , wallCount . maximum );
           LayoutObjectAtRandom ( foodTiles , foodCount . minimum , foodCount . maximum );
@@ -124,6 +154,7 @@ public class BoardManager : MonoBehaviour
           int enemy2Count = ( int ) Mathf . Log ( level , 2f );                                               //Places Enemy 2
           LayoutObjectAtRandom ( enemy2Tiles , enemy2Count , enemy2Count );
 
-          Instantiate ( exit , new Vector3 ( columns - 1 , rows - 1 , 0f ) , Quaternion . identity );         //Will need two exits
+          Instantiate ( exit , new Vector3 ( columns - 1 , rows - 5 , 0f ) , Quaternion . identity );         //Will need two exits
+          LayoutStoneAtRandom ( );
      }
 }
