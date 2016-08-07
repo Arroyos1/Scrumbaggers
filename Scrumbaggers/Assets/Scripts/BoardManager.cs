@@ -21,6 +21,9 @@ public class BoardManager : MonoBehaviour
      public int columns = 19;
      public int rows = 9;
 
+     public int scrumbags_P1;
+     public int scrumbags_P2;
+
      public Count wallCount = new Count (8, 12);
      public Count foodCount = new Count ( 2 , 6 );
 
@@ -38,10 +41,14 @@ public class BoardManager : MonoBehaviour
 
      private List <Vector3> gridPositions = new List <Vector3> ( );  //requires System.Collections.Generic
      private List <Vector3> stonePositions = new List <Vector3> ( );
+     private List <Vector3> enemyPositions_P1 = new List <Vector3> ( );
+	private List <Vector3> enemyPositions_P2 = new List <Vector3> ( );
 
      private bool stoned = false;
+     private bool enemyDeploy_P1 = false;
+     private bool enemyDeploy_P2 = false;
 
-     
+
      /// <summary>
      /// Called in SetupScene() clears the current List, goes through each potential gridposition and adds to list
      /// </summary>
@@ -66,6 +73,27 @@ public class BoardManager : MonoBehaviour
                     gridPositions . Add ( new Vector3 ( x , y , 0f ) );
                }
           }
+
+          enemyPositions_P1. Clear();
+          for ( int x = ( columns / 2 ) + 1 ; x < columns - 1 ; x++ )
+         {
+               for (int y = 1 ; y < rows - 1 ; y++ )
+               {
+                    enemyPositions_P1 . Add ( new Vector3 ( x , y , 0f ) );
+               }
+          }
+
+          enemyPositions_P2 . Clear ( );
+
+          for ( int x = 1 ; x < ( columns / 2 ) - 1 ; x++ )
+          {
+               for ( int y = 1 ; y < rows - 1 ; y++ )
+               {
+                    enemyPositions_P2 . Add ( new Vector3 ( x , y , 0f ) );
+               }
+          }
+
+
      }
 
 
@@ -100,15 +128,32 @@ public class BoardManager : MonoBehaviour
      Vector3 RandomPosition ()
      {
 		int randomIndex = Random.Range( 0 , gridPositions . Count );
+		int stoneIndex = Random.Range( 0, stonePositions . Count );
+          int enemy1Index = Random . Range ( 0 , enemyPositions_P1 . Count );
+          int enemy2Index = Random.Range(0, enemyPositions_P2 . Count );
 
-     	if (!stoned)
+          if (!stoned)
      	{
-			Vector3 stonePosition = gridPositions [ randomIndex ];
+			Vector3 stonePosition = stonePositions [ stoneIndex ];
 			stoned = true;
-			gridPositions . RemoveAt ( randomIndex );	
+			gridPositions . RemoveAt ( stoneIndex );	
           	return stonePosition;
      	}
-     	else
+     	else if (enemyDeploy_P1)
+          {
+               Vector3 enemyPosition_P1 = enemyPositions_P1 [ enemy1Index ];
+               enemyDeploy_P1 = false;
+               gridPositions . RemoveAt ( enemy1Index );
+               return enemyPosition_P1;
+          }
+          else if ( enemyDeploy_P2 )
+          {
+               Vector3 enemyPosition_P2 = enemyPositions_P2 [ enemy2Index ];
+               enemyDeploy_P2 = false;
+               gridPositions . RemoveAt ( enemy2Index );
+               return enemyPosition_P2;
+          }
+          else
      	{
 			Vector3 randomPosition = gridPositions [ randomIndex ];
           	gridPositions . RemoveAt ( randomIndex );
@@ -116,9 +161,14 @@ public class BoardManager : MonoBehaviour
      	}
           
      }
-
-
-
+     
+	void LayoutStoneAtRandom ( )
+     {
+     	Vector3 stonePosition = RandomPosition ( );
+    	     Instantiate ( stones , stonePosition , Quaternion . identity);
+		GameObject wallChoice = wallTiles [ Random . Range ( 0 , wallTiles . Length ) ];
+      	Instantiate ( wallChoice , stonePosition , Quaternion . identity );
+     }
      /// <summary>
      /// Selects a random object from the gameobject array and instantiates it at the random position returned from RandomPosition()
      /// </summary>
@@ -137,13 +187,29 @@ public class BoardManager : MonoBehaviour
           }
      }
 
-     void LayoutStoneAtRandom ( )
+     void LayoutEnemy1AtRandom( GameObject [ ] tileArray , int minimum , int maximum )
      {
-     	Vector3 stonePosition = RandomPosition ( );
-    	Instantiate ( stones , stonePosition , Quaternion . identity);
-		GameObject wallChoice = wallTiles [ Random . Range ( 0 , wallTiles . Length ) ];
-      	Instantiate ( wallChoice , stonePosition , Quaternion . identity );
+     	for (int i = 0; i < scrumbags_P1; i++)
+     	{
+               enemyDeploy_P1 = true;
+               Vector3 randomPosition = RandomPosition();
+               GameObject tileChoice = tileArray [ Random . Range ( 0 , tileArray . Length ) ];
+               Instantiate ( tileChoice , randomPosition , Quaternion . identity );
+          }
      }
+
+     void LayoutEnemy2AtRandom ( GameObject [ ] tileArray , int minimum , int maximum )
+     {
+          for ( int i = 0 ; i < scrumbags_P2 ; i++ )
+          {
+               enemyDeploy_P2 = true;
+               Vector3 randomPosition = RandomPosition ( );
+               GameObject tileChoice = tileArray [ Random . Range ( 0 , tileArray . Length ) ];
+               Instantiate ( tileChoice , randomPosition , Quaternion . identity );
+          }
+     }
+
+
 
 
      /// <summary>
@@ -161,15 +227,13 @@ public class BoardManager : MonoBehaviour
       	LayoutObjectAtRandom ( wallTiles , wallCount . minimum , wallCount . maximum );
       	LayoutObjectAtRandom ( foodTiles , foodCount . minimum , foodCount . maximum );
 
-      	int enemyCount = ( int ) Mathf . Log ( level , 2f );                                                //Places Enemy 1
-      	LayoutObjectAtRandom ( enemyTiles , enemyCount , enemyCount );
+          //int enemyCount = ( int ) Mathf . Log ( level , 2f ); //Places Enemy 1
+         	LayoutEnemy1AtRandom ( enemyTiles , scrumbags_P1 , scrumbags_P1);
 
-      	int enemy2Count = ( int ) Mathf . Log ( level , 2f );                                               //Places Enemy 2
-      	LayoutObjectAtRandom ( enemy2Tiles , enemy2Count , enemy2Count );
+          //int enemy2Count = ( int ) Mathf . Log ( level , 2f );                                               //Places Enemy 2
+        	LayoutEnemy2AtRandom ( enemy2Tiles , scrumbags_P2 , scrumbags_P2 );
 
       	Instantiate ( exit , new Vector3 ( columns - 1 , rows - 5 , 0f ) , Quaternion . identity );         
-		Instantiate ( exit_P2 , new Vector3 ( columns - columns, rows - 5 , 0f ) , Quaternion . identity ); 
-
-      	      
+		Instantiate ( exit_P2 , new Vector3 ( columns - columns, rows - 5 , 0f ) , Quaternion . identity );       	      
      }
 }
