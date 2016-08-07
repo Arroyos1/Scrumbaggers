@@ -25,6 +25,7 @@ public class BoardManager : MonoBehaviour
      public Count foodCount = new Count ( 2 , 6 );
 
      public GameObject exit;
+     public GameObject exit_P2;
      public GameObject stones;
      public GameObject [ ] floorTiles;
      public GameObject [ ] wallTiles;
@@ -141,20 +142,22 @@ public class BoardManager : MonoBehaviour
      /// <param name="level"></param>
      public void SetupScene (int level)
      {
-          BoardSetup ( );
-          InitialiseList ( );
-          InitializeLocationList ( );
+    	BoardSetup ( );
+  		InitialiseList ( );
+   		InitializeLocationList ( );
 
-          LayoutObjectAtRandom ( wallTiles , wallCount . minimum , wallCount . maximum );
-          LayoutObjectAtRandom ( foodTiles , foodCount . minimum , foodCount . maximum );
+      	LayoutObjectAtRandom ( wallTiles , wallCount . minimum , wallCount . maximum );
+      	LayoutObjectAtRandom ( foodTiles , foodCount . minimum , foodCount . maximum );
 
-          int enemyCount = ( int ) Mathf . Log ( level , 2f );                                                //Places Enemy 1
-          LayoutObjectAtRandom ( enemyTiles , enemyCount , enemyCount );
+      	int enemyCount = ( int ) Mathf . Log ( level , 2f );                                                //Places Enemy 1
+      	LayoutObjectAtRandom ( enemyTiles , enemyCount , enemyCount );
 
-          int enemy2Count = ( int ) Mathf . Log ( level , 2f );                                               //Places Enemy 2
-          LayoutObjectAtRandom ( enemy2Tiles , enemy2Count , enemy2Count );
+      	int enemy2Count = ( int ) Mathf . Log ( level , 2f );                                               //Places Enemy 2
+      	LayoutObjectAtRandom ( enemy2Tiles , enemy2Count , enemy2Count );
 
-          Instantiate ( exit , new Vector3 ( columns - 1 , rows - 5 , 0f ) , Quaternion . identity );         //Will need two exits
-          LayoutStoneAtRandom ( );
+      	Instantiate ( exit , new Vector3 ( columns - 1 , rows - 5 , 0f ) , Quaternion . identity );         
+		Instantiate ( exit_P2 , new Vector3 ( columns - columns, rows - 5 , 0f ) , Quaternion . identity ); 
+
+      	LayoutStoneAtRandom ( );      
      }
 }
