@@ -35,16 +35,29 @@ public class BoardManager : MonoBehaviour
      public GameObject [ ] enemy2Tiles;
 
      private Transform boardHolder;
+
      private List <Vector3> gridPositions = new List <Vector3> ( );  //requires System.Collections.Generic
-     private List<Vector3> stonePositions = new List<Vector3> ( );
+     private List <Vector3> stonePositions = new List <Vector3> ( );
+
+     private bool stoned = false;
 
      
      /// <summary>
-     /// Called in SetupScene() clears the current List, goes through each potentioal gridposition and adds to list
+     /// Called in SetupScene() clears the current List, goes through each potential gridposition and adds to list
      /// </summary>
-     void InitialiseList ()
+     void InitialiseLists ()
      {
-          gridPositions . Clear ( );
+        stonePositions . Clear ( );
+
+          for ( int x = 3 ; x < columns - 3 ; x++ )
+          {
+               for ( int y = 3 ; y < rows - 3 ; y++ )
+               {
+                    stonePositions . Add ( new Vector3 ( x , y , 0f ) );
+               }
+          }
+
+		gridPositions . Clear ( );
 
           for (int x = 1 ; x < columns - 1 ; x++ )
           {
@@ -55,18 +68,7 @@ public class BoardManager : MonoBehaviour
           }
      }
 
-     void InitializeLocationList()
-     {
-          stonePositions . Clear ( );
-          for ( int x = 3 ; x < columns - 3 ; x++ )
-          {
-               for ( int y = 3 ; y < rows - 3 ; y++ )
-               {
-                    stonePositions . Add ( new Vector3 ( x , y , 0f ) );
-               }
-          }
 
-     }
      /// <summary>
      /// Called in SetupScene() Creates an Empty Gameobject in Heirarchy to hold the instantiated floor and wall tiles that make up the board
      /// </summary>
@@ -90,25 +92,32 @@ public class BoardManager : MonoBehaviour
           }
      }
 
-
+	
      /// <summary>
      /// returns a random Vector3 grid position from the list and removes it so it is not chosen again
      /// </summary>
      /// <returns></returns>
      Vector3 RandomPosition ()
      {
-          int randomIndex = Random . Range ( 0 , gridPositions . Count );
-          Vector3 randomPosition = gridPositions [ randomIndex ];
-          gridPositions . RemoveAt ( randomIndex );
-          return randomPosition;
+		int randomIndex = Random.Range( 0 , gridPositions . Count );
+
+     	if (!stoned)
+     	{
+			Vector3 stonePosition = gridPositions [ randomIndex ];
+			stoned = true;
+			gridPositions . RemoveAt ( randomIndex );	
+          	return stonePosition;
+     	}
+     	else
+     	{
+			Vector3 randomPosition = gridPositions [ randomIndex ];
+          	gridPositions . RemoveAt ( randomIndex );
+          	return randomPosition; //to LayoutObjectAtRandom()
+     	}
+          
      }
 
-     Vector3 RandomStonePosition ( )
-     {
-          int randomIndex = Random . Range ( 0 , stonePositions . Count );
-          Vector3 randomPosition = stonePositions [ randomIndex ];
-          return randomPosition;
-     }
+
 
      /// <summary>
      /// Selects a random object from the gameobject array and instantiates it at the random position returned from RandomPosition()
@@ -130,8 +139,10 @@ public class BoardManager : MonoBehaviour
 
      void LayoutStoneAtRandom ( )
      {
-          Vector3 randomPosition = RandomStonePosition ( );
-          Instantiate ( stones , randomPosition , Quaternion . identity);
+     	Vector3 stonePosition = RandomPosition ( );
+    	Instantiate ( stones , stonePosition , Quaternion . identity);
+		GameObject wallChoice = wallTiles [ Random . Range ( 0 , wallTiles . Length ) ];
+      	Instantiate ( wallChoice , stonePosition , Quaternion . identity );
      }
 
 
@@ -143,8 +154,9 @@ public class BoardManager : MonoBehaviour
      public void SetupScene (int level)
      {
     	BoardSetup ( );
-  		InitialiseList ( );
-   		InitializeLocationList ( );
+  		InitialiseLists ( );
+   		
+		LayoutStoneAtRandom ( );
 
       	LayoutObjectAtRandom ( wallTiles , wallCount . minimum , wallCount . maximum );
       	LayoutObjectAtRandom ( foodTiles , foodCount . minimum , foodCount . maximum );
@@ -158,6 +170,6 @@ public class BoardManager : MonoBehaviour
       	Instantiate ( exit , new Vector3 ( columns - 1 , rows - 5 , 0f ) , Quaternion . identity );         
 		Instantiate ( exit_P2 , new Vector3 ( columns - columns, rows - 5 , 0f ) , Quaternion . identity ); 
 
-      	LayoutStoneAtRandom ( );      
+      	      
      }
 }
