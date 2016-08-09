@@ -21,8 +21,12 @@ public class BoardManager : MonoBehaviour
      public int columns = 19;
      public int rows = 9;
 
-     public int scrumbags_P1;
-     public int scrumbags_P2;
+     [HideInInspector]
+     public int team1Count;
+     [HideInInspector]
+     public int team2Count;
+     //public int scrumbags_P1;
+     //public int scrumbags_P2;
 
      public Count wallCount = new Count (8, 12);
      public Count foodCount = new Count ( 2 , 6 );
@@ -34,8 +38,8 @@ public class BoardManager : MonoBehaviour
      public GameObject [ ] wallTiles;
      public GameObject [ ] outerWallTiles;
      public GameObject [ ] foodTiles;
-     public GameObject [ ] enemyTiles;
-     public GameObject [ ] enemy2Tiles;
+     public GameObject [ ] team1Tiles;
+     public GameObject [ ] team2Tiles;
 
      private Transform boardHolder;
 
@@ -52,7 +56,7 @@ public class BoardManager : MonoBehaviour
      /// <summary>
      /// Called in SetupScene() clears the current List, goes through each potential gridposition and adds to list
      /// </summary>
-     void InitialiseLists ()
+     void InitializeLists ()
      {
         stonePositions . Clear ( );
 
@@ -75,7 +79,7 @@ public class BoardManager : MonoBehaviour
           }
 
           enemyPositions_P1. Clear();
-          for ( int x = ( columns / 2 ) + 1 ; x < columns - 1 ; x++ )
+          for ( int x = 1 ; x < ( columns / 2 ) - 1 ; x++ )
          {
                for (int y = 1 ; y < rows - 1 ; y++ )
                {
@@ -85,17 +89,14 @@ public class BoardManager : MonoBehaviour
 
           enemyPositions_P2 . Clear ( );
 
-          for ( int x = 1 ; x < ( columns / 2 ) - 1 ; x++ )
+          for ( int x = ( columns / 2 ) + 1 ; x < columns - 1 ; x++ )
           {
                for ( int y = 1 ; y < rows - 1 ; y++ )
                {
                     enemyPositions_P2 . Add ( new Vector3 ( x , y , 0f ) );
                }
           }
-
-
      }
-
 
      /// <summary>
      /// Called in SetupScene() Creates an Empty Gameobject in Heirarchy to hold the instantiated floor and wall tiles that make up the board
@@ -127,8 +128,8 @@ public class BoardManager : MonoBehaviour
      /// <returns></returns>
      Vector3 RandomPosition ()
      {
-		int randomIndex = Random.Range( 0 , gridPositions . Count );
 		int stoneIndex = Random.Range( 0, stonePositions . Count );
+          int randomIndex = Random . Range ( 0 , gridPositions . Count );
           int enemy1Index = Random . Range ( 0 , enemyPositions_P1 . Count );
           int enemy2Index = Random.Range(0, enemyPositions_P2 . Count );
 
@@ -136,7 +137,11 @@ public class BoardManager : MonoBehaviour
      	{
 			Vector3 stonePosition = stonePositions [ stoneIndex ];
 			stoned = true;
-			gridPositions . RemoveAt ( stoneIndex );	
+
+			gridPositions . RemoveAt ( stoneIndex );
+               enemyPositions_P1 . RemoveAt ( stoneIndex );
+               enemyPositions_P2 . RemoveAt ( stoneIndex );
+               	
           	return stonePosition;
      	}
      	else if (enemyDeploy_P1)
@@ -144,6 +149,8 @@ public class BoardManager : MonoBehaviour
                Vector3 enemyPosition_P1 = enemyPositions_P1 [ enemy1Index ];
                enemyDeploy_P1 = false;
                gridPositions . RemoveAt ( enemy1Index );
+               enemyPositions_P1 . RemoveAt ( enemy1Index );
+               enemyPositions_P2 . RemoveAt ( enemy1Index );
                return enemyPosition_P1;
           }
           else if ( enemyDeploy_P2 )
@@ -151,6 +158,7 @@ public class BoardManager : MonoBehaviour
                Vector3 enemyPosition_P2 = enemyPositions_P2 [ enemy2Index ];
                enemyDeploy_P2 = false;
                gridPositions . RemoveAt ( enemy2Index );
+               enemyPositions_P2 . RemoveAt ( enemy2Index );
                return enemyPosition_P2;
           }
           else
@@ -189,7 +197,7 @@ public class BoardManager : MonoBehaviour
 
      void LayoutEnemy1AtRandom( GameObject [ ] tileArray , int minimum , int maximum )
      {
-     	for (int i = 0; i < scrumbags_P1; i++)
+     	for (int i = 0; i < team1Count; i++)
      	{
                enemyDeploy_P1 = true;
                Vector3 randomPosition = RandomPosition();
@@ -200,7 +208,7 @@ public class BoardManager : MonoBehaviour
 
      void LayoutEnemy2AtRandom ( GameObject [ ] tileArray , int minimum , int maximum )
      {
-          for ( int i = 0 ; i < scrumbags_P2 ; i++ )
+          for ( int i = 0 ; i < team2Count ; i++ )
           {
                enemyDeploy_P2 = true;
                Vector3 randomPosition = RandomPosition ( );
@@ -208,9 +216,6 @@ public class BoardManager : MonoBehaviour
                Instantiate ( tileChoice , randomPosition , Quaternion . identity );
           }
      }
-
-
-
 
      /// <summary>
      /// Calls Above Functions and adds the exit tile
@@ -220,18 +225,18 @@ public class BoardManager : MonoBehaviour
      public void SetupScene (int level)
      {
     	BoardSetup ( );
-  		InitialiseLists ( );
+  		InitializeLists ( );
    		
 		LayoutStoneAtRandom ( );
 
       	LayoutObjectAtRandom ( wallTiles , wallCount . minimum , wallCount . maximum );
       	LayoutObjectAtRandom ( foodTiles , foodCount . minimum , foodCount . maximum );
 
-          //int enemyCount = ( int ) Mathf . Log ( level , 2f ); //Places Enemy 1
-         	LayoutEnemy1AtRandom ( enemyTiles , scrumbags_P1 , scrumbags_P1);
+          team1Count = ( int ) Mathf . Log ( level , 2f ); //Places Enemy 1
+         	LayoutEnemy1AtRandom ( team1Tiles , team1Count , team1Count );
 
-          //int enemy2Count = ( int ) Mathf . Log ( level , 2f );                                               //Places Enemy 2
-        	LayoutEnemy2AtRandom ( enemy2Tiles , scrumbags_P2 , scrumbags_P2 );
+          team2Count = ( int ) Mathf . Log ( level , 2f );                                               //Places Enemy 2
+        	LayoutEnemy2AtRandom ( team2Tiles , team2Count , team2Count );
 
       	Instantiate ( exit , new Vector3 ( columns - 1 , rows - 5 , 0f ) , Quaternion . identity );         
 		Instantiate ( exit_P2 , new Vector3 ( columns - columns, rows - 5 , 0f ) , Quaternion . identity );       	      

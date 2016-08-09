@@ -11,6 +11,7 @@ public class Player2 : MovingObject
      public float restartLevelDelay = 1f;
      public Text foodText2;
      public Text scrapText2;
+     public Text scoreText2;
      public AudioClip moveSound1;
      public AudioClip moveSound2;
      public AudioClip eatSound1;
@@ -23,6 +24,7 @@ public class Player2 : MovingObject
      private GameObject turnIndicator;
      private int food;
      private int scraps;
+     private int score;
 
      void Awake()
      {
@@ -32,18 +34,22 @@ public class Player2 : MovingObject
      {
           animator = GetComponent<Animator> ( );
 
-          food = GameManager . instance . playerFoodPoints;
-          scraps = GameManager . instance . playerScrapPoints;
+          food = GameManager . instance . player2FoodPoints;
+          scraps = GameManager . instance . player2ScrapPoints;
+          score = GameManager . instance . player2ScorePoints;
 
           foodText2 . text = "Food: " + food;
           scrapText2 . text = "Scraps: " + scraps;
+          scoreText2 . text = "Score: " + score;
 
           base . Start ( );
 	}
 	
      private void OnDisable ()
      {
-          GameManager . instance . playerFoodPoints = food;
+          GameManager . instance . player2FoodPoints = food;
+          GameManager . instance . player2ScorePoints = score;
+          GameManager . instance . player2ScrapPoints = scraps;
      }
 
 	void Update ()
@@ -85,13 +91,17 @@ public class Player2 : MovingObject
           CheckIfGameOver ( );
 
           GameManager . instance . player2Turn = false;
-          GameManager . instance . enemy1Turn =true;          
+          GameManager . instance . team1Turn =true;          
      }
 
      private void OnTriggerEnter2D (Collider2D other)
      {
-          if (other.tag == "Exit")
+          if (other.tag == "Exit2")
           {
+               score = score + scraps;
+               scoreText2 . text = "Score: " + score;
+               scraps = 0;
+               animator . SetTrigger ( "player2Chop" );
                Invoke ( "Restart" , restartLevelDelay );
                enabled = false;
           }
