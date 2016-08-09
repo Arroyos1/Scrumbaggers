@@ -1,0 +1,345 @@
+fileFormatVersion: 2
+guid: 0a5fa1884c6746249b99da9c004d778f
+timeCreated: 1470772298
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Gems_0
+    21300002: Gems_1
+    21300004: Gems_2
+    21300006: Gems_3
+    21300008: Gems_4
+    21300010: Gems_5
+    21300012: Gems_6
+    21300014: Gems_7
+    21300016: Gems_8
+    21300018: Gems_9
+    21300020: Gems_10
+    21300022: Gems_11
+    21300024: Gems_12
+    21300026: Gems_13
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Gems_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 98.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 12.5, y: 45}
+        - {x: -4.5, y: 45}
+        - {x: -21.5, y: 40}
+        - {x: -23.5, y: 28}
+        - {x: -23.5, y: 3}
+        - {x: -13.5, y: -8}
+        - {x: 10.5, y: -8}
+        - {x: 25.5, y: -2}
+        - {x: 29.5, y: 8}
+        - {x: 29.5, y: 24}
+        - {x: 21.5, y: 42}
+    - name: Gems_1
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 98.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -30.5, y: 44}
+        - {x: -37.5, y: 36}
+        - {x: -37.5, y: -4}
+        - {x: -27.5, y: -7}
+        - {x: 9.5, y: -7}
+        - {x: 15.5, y: 0}
+        - {x: 15.5, y: 37}
+        - {x: 6.5, y: 44}
+    - name: Gems_2
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 98.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -14.5, y: 45}
+        - {x: -35.5, y: 36}
+        - {x: -35.5, y: 2}
+        - {x: -17.5, y: -6}
+        - {x: 17.5, y: -6}
+        - {x: 18.5, y: 0}
+        - {x: 18.5, y: 40}
+        - {x: 7.5, y: 45}
+    - name: Gems_3
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 98.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12.5, y: 46}
+        - {x: -27.5, y: 31}
+        - {x: -27.5, y: 11}
+        - {x: -5.5, y: -6}
+        - {x: 0.5, y: -6}
+        - {x: 23.5, y: 17}
+        - {x: 23.5, y: 29}
+        - {x: 1.5, y: 46}
+    - name: Gems_4
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 98.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -10.5, y: 46}
+        - {x: -20.5, y: 35}
+        - {x: -21.5, y: 32}
+        - {x: -21.5, y: 3}
+        - {x: -9.5, y: -8}
+        - {x: 16.5, y: -8}
+        - {x: 31.5, y: 6}
+        - {x: 31.5, y: 33}
+        - {x: 18.5, y: 46}
+    - name: Gems_5
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 98.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0.5, y: 48}
+        - {x: -11.5, y: 39}
+        - {x: -11.5, y: 16}
+        - {x: 13.5, y: -7}
+        - {x: 28.5, y: -7}
+        - {x: 44.5, y: 13}
+        - {x: 44.5, y: 41}
+        - {x: 41.5, y: 48}
+    - name: Gems_6
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 98.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 21.5, y: 45}
+        - {x: 12.5, y: 45}
+        - {x: -7.5, y: 6}
+        - {x: -7.5, y: -8}
+        - {x: 44.5, y: -8}
+        - {x: 44.5, y: 17}
+        - {x: 30.5, y: 39}
+    - name: Gems_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -11.5, y: 25}
+        - {x: -21.5, y: 21}
+        - {x: -21.5, y: -10}
+        - {x: -16.5, y: -26}
+        - {x: -8.5, y: -28}
+        - {x: 21.5, y: -28}
+        - {x: 32.5, y: -16}
+        - {x: 32.5, y: 8}
+        - {x: 24.5, y: 25}
+    - name: Gems_8
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 10.5, y: 27}
+        - {x: -36.5, y: 27}
+        - {x: -36.5, y: -19}
+        - {x: -35.5, y: -26}
+        - {x: 9.5, y: -26}
+        - {x: 16.5, y: -23}
+        - {x: 16.5, y: 26}
+    - name: Gems_9
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -18.5, y: 26}
+        - {x: -29.5, y: 20}
+        - {x: -29.5, y: -21}
+        - {x: -18.5, y: -25}
+        - {x: 1.5, y: -25}
+        - {x: 20.5, y: -20}
+        - {x: 20.5, y: 21}
+        - {x: 4.5, y: 26}
+    - name: Gems_10
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9.5, y: 30}
+        - {x: -20.5, y: 15}
+        - {x: -26.5, y: 5}
+        - {x: -26.5, y: -3}
+        - {x: -4.5, y: -25}
+        - {x: 5.5, y: -25}
+        - {x: 29.5, y: -1}
+        - {x: 29.5, y: 13}
+        - {x: 4.5, y: 30}
+    - name: Gems_11
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 0.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9.5, y: 30}
+        - {x: -18.5, y: 16}
+        - {x: -18.5, y: -12}
+        - {x: -9.5, y: -21}
+        - {x: -6.5, y: -23}
+        - {x: 18.5, y: -23}
+        - {x: 34.5, y: -15}
+        - {x: 34.5, y: 17}
+        - {x: 24.5, y: 30}
+    - name: Gems_12
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 0.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.5, y: 29}
+        - {x: -10.5, y: 25}
+        - {x: -12.5, y: 17}
+        - {x: -12.5, y: 5}
+        - {x: 10.5, y: -28}
+        - {x: 19.5, y: -28}
+        - {x: 43.5, y: 1}
+        - {x: 43.5, y: 17}
+        - {x: 34.5, y: 29}
+    - name: Gems_13
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 0.5
+        width: 108.28571
+        height: 98.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19.5, y: 26}
+        - {x: 11.5, y: 26}
+        - {x: -7.5, y: -11}
+        - {x: -10.5, y: -21}
+        - {x: -10.5, y: -24}
+        - {x: -7.5, y: -26}
+        - {x: 41.5, y: -26}
+        - {x: 42.5, y: -24}
+        - {x: 42.5, y: -16}
+        - {x: 30.5, y: 7}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -11,7 +11,7 @@ public class Team_P2 : MovingObject
 	private Animator animator;
 	private Transform target;
 	private bool skipMove;
-	private int health = 3;
+	private int health = 40;
      
 	protected override void Start ()
 	{
@@ -56,7 +56,7 @@ public class Team_P2 : MovingObject
                hitPlayer1 . LoseFood ( playerDamage );
           }
 
-          else if ( component . CompareTag ( "Team_P1" ) )
+          else if ( component . CompareTag ( "Team1" ) )
           {
                Team_P1 hitTeam1 = component as Team_P1;
                hitTeam1 . LoseHealth ( playerDamage );
@@ -69,12 +69,12 @@ public class Team_P2 : MovingObject
 
 	public void LoseHealth ( int loss )
 	{
-		//animator . SetTrigger ( "playerHit" );
+		animator . SetTrigger ( "enemy2Attack" );
 		health -= loss;
 		Debug . Log ( health );
 		//foodText1 . text = "-" + loss + " Food: " + food;
 		//CheckIfGameOver ( );
-		if (health == 0)
+		if (health <= 0)
 		{
 			gameObject . SetActive ( false );
 		}

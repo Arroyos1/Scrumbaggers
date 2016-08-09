@@ -8,16 +8,20 @@ public class Player1 : MovingObject
      public int wallDamage = 1;
      public int pointsPerFood = 10;
      public int pointsPerSoda = 20;
+     public int stonePoints = 7;
+     public int exitPoints = 3;
      public float restartLevelDelay = 1f;
      public Text foodText1;
      public Text scrapText1;
      public Text scoreText1;
      public AudioClip moveSound1;
      public AudioClip moveSound2;
+     public AudioClip moveSound3;
      public AudioClip eatSound1;
      public AudioClip eatSound2;
      public AudioClip drinkSound1;
      public AudioClip drinkSound2;
+     public AudioClip stoneSound;
      public AudioClip gameOverSound;
 
      private Animator animator;
@@ -25,7 +29,10 @@ public class Player1 : MovingObject
      private int food;
      private int scraps;
      private int score;
+     private int recharge = 20;
+     private bool skipTurn = false;
      private bool exitFirst = false;
+     private bool noEnergy = false;
 
      void Awake()
      {
@@ -40,7 +47,7 @@ public class Player1 : MovingObject
           scraps = GameManager . instance . playerScrapPoints;
           score = GameManager . instance . playerScorePoints;
 
-          foodText1 . text = "Food: " + food;
+          foodText1 . text = "Energy: " + food;
           scrapText1 . text = "Scraps: " + scraps;
           scoreText1 . text = "Score: " + score;
 
@@ -49,7 +56,7 @@ public class Player1 : MovingObject
 	
      private void OnDisable ()
      {
-          GameManager . instance . playerFoodPoints = food;
+          GameManager . instance . playerFoodPoints = food + recharge;
           GameManager . instance . playerScorePoints = score;
           GameManager . instance . playerScrapPoints = scraps;
      }
@@ -79,8 +86,22 @@ public class Player1 : MovingObject
 
      protected override void AttemptMove <T>  (int xDir, int yDir)
      {
-          food--;
-          foodText1 . text = "Food: " + food;
+          if ( noEnergy )
+          {
+               if (skipTurn)
+               {
+                    skipTurn = false;
+                    GameManager . instance . player1Turn = false;
+                    GameManager . instance . team1Turn = true;
+                    return;
+               }
+          }
+
+          if (food > 0)
+               food--;
+          foodText1 . text = "Energy: " + food;
+          scoreText1 . text = "Score: " + score;
+          scrapText1 . text = "Scraps: " + scraps;
 
           base . AttemptMove <T> ( xDir , yDir );
 
@@ -93,14 +114,15 @@ public class Player1 : MovingObject
           CheckIfGameOver ( );
 
           GameManager . instance . player1Turn = false;
-          GameManager . instance . team2Turn = true;         
+          GameManager . instance . team1Turn = true;         
      }
 
      private void OnTriggerEnter2D (Collider2D other)
      {
           if (other.tag == "Exit")
           {
-               score = score + scraps + 3;
+               food = food + (scraps * 2);
+               score = score + exitPoints;
                scoreText1.text = "Score: " + score;
                scraps = 0;
                animator . SetTrigger ( "playerChop" );
@@ -110,21 +132,29 @@ public class Player1 : MovingObject
           else if (other.tag == "Food")
           {
                food += pointsPerFood;
-               foodText1 . text = "+" + pointsPerFood + " Food: " + food;
+               foodText1 . text = "+" + pointsPerFood + " Energy: " + food;
+               if ( food > 100 )
+                    food = 100;
                SoundManager . instance . RandomizeSfx ( eatSound1 , eatSound2 );
                other . gameObject . SetActive ( false );
           }
           else if(other.tag == "Soda")
           {
                food += pointsPerSoda;
-               foodText1 . text = "+" + pointsPerSoda + " Food: " + food;
+               foodText1 . text = "+" + pointsPerSoda + " Energy: " + food;
+               if ( food > 100 )
+                    food = 100;
                SoundManager . instance . RandomizeSfx ( drinkSound1 , drinkSound2 );
                other . gameObject . SetActive ( false );
           }
           else if (other.tag == "Stones")
           {
-               other . gameObject . SetActive ( false );
+               score = score + stonePoints;
+               scoreText1 . text = "+" + stonePoints + " Score: " + score;
+               SoundManager . instance . PlaySingle ( stoneSound );
+               other . gameObject . SetActive ( false );               
           }
+         
      }
 
      protected override void OnCantMove <T> (T component)
@@ -145,7 +175,7 @@ public class Player1 : MovingObject
      {
           animator . SetTrigger ( "playerHit" );
           food -= loss;
-          foodText1 . text = "-" + loss + " Food: " + food;
+          foodText1 . text = "-" + loss + " Energy: " + food;
           CheckIfGameOver ( );
      }
 
@@ -153,10 +183,17 @@ public class Player1 : MovingObject
      {
           if ( food <= 0 )
           {
+               noEnergy = true;
+               skipTurn = true;
+               food = 0;               
+          }
+
+          if (score >= 100)
+          {
                SoundManager . instance . PlaySingle ( gameOverSound );
                SoundManager . instance . musicSource . Stop ( );
                GameManager . instance . GameOver ( );
           }
-               
+
      }
 }

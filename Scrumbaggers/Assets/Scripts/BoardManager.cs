@@ -30,10 +30,11 @@ public class BoardManager : MonoBehaviour
 
      public Count wallCount = new Count (8, 12);
      public Count foodCount = new Count ( 2 , 6 );
+     public Count stoneCount = new Count ( 1 , 3 );
 
      public GameObject exit;
      public GameObject exit_P2;
-     public GameObject stones;
+     public GameObject [] stones;
      public GameObject [ ] floorTiles;
      public GameObject [ ] wallTiles;
      public GameObject [ ] outerWallTiles;
@@ -170,13 +171,13 @@ public class BoardManager : MonoBehaviour
           
      }
      
-	void LayoutStoneAtRandom ( )
-     {
-     	Vector3 stonePosition = RandomPosition ( );
-    	     Instantiate ( stones , stonePosition , Quaternion . identity);
-		GameObject wallChoice = wallTiles [ Random . Range ( 0 , wallTiles . Length ) ];
-      	Instantiate ( wallChoice , stonePosition , Quaternion . identity );
-     }
+	//void LayoutStoneAtRandom ( GameObject[] til)
+     //{
+     	//Vector3 stonePosition = RandomPosition ( );
+    	     //Instantiate ( stones , stonePosition , Quaternion . identity);
+		//GameObject wallChoice = wallTiles [ Random . Range ( 0 , wallTiles . Length ) ];
+      	//Instantiate ( wallChoice , stonePosition , Quaternion . identity );
+     //}
      /// <summary>
      /// Selects a random object from the gameobject array and instantiates it at the random position returned from RandomPosition()
      /// </summary>
@@ -226,19 +227,18 @@ public class BoardManager : MonoBehaviour
      {
     	BoardSetup ( );
   		InitializeLists ( );
-   		
-		LayoutStoneAtRandom ( );
-
-      	LayoutObjectAtRandom ( wallTiles , wallCount . minimum , wallCount . maximum );
-      	LayoutObjectAtRandom ( foodTiles , foodCount . minimum , foodCount . maximum );
 
           team1Count = ( int ) Mathf . Log ( level , 2f ); //Places Enemy 1
-         	LayoutEnemy1AtRandom ( team1Tiles , team1Count , team1Count );
+          LayoutEnemy1AtRandom ( team1Tiles , team1Count , team1Count );
 
           team2Count = ( int ) Mathf . Log ( level , 2f );                                               //Places Enemy 2
-        	LayoutEnemy2AtRandom ( team2Tiles , team2Count , team2Count );
+          LayoutEnemy2AtRandom ( team2Tiles , team2Count , team2Count );
 
-      	Instantiate ( exit , new Vector3 ( columns - 1 , rows - 5 , 0f ) , Quaternion . identity );         
+          LayoutObjectAtRandom ( stones, stoneCount.minimum, stoneCount.maximum );
+          LayoutObjectAtRandom ( wallTiles , wallCount . minimum , wallCount . maximum );
+      	LayoutObjectAtRandom ( foodTiles , foodCount . minimum , foodCount . maximum );
+
+          Instantiate ( exit , new Vector3 ( columns - 1 , rows - 5 , 0f ) , Quaternion . identity );         
 		Instantiate ( exit_P2 , new Vector3 ( columns - columns, rows - 5 , 0f ) , Quaternion . identity );       	      
      }
 }

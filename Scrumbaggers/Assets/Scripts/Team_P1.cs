@@ -10,14 +10,16 @@ public class Team_P1 : MovingObject
 
      private Animator animator;
      private Transform target;
+     private Transform team;
      private bool skipMove;
-     private int health = 3;
+     private int health = 40;
 
      protected override void Start ()
      {
           GameManager . instance . AddEnemyToList ( this );
           animator = GetComponent<Animator> ( );
           target = GameObject . FindGameObjectWithTag ( "Player2" ) . transform;
+          team = GameObject . FindGameObjectWithTag ("Team2"). transform;
           Debug . Log ( target . transform );
           base . Start ( );
 	}	
@@ -46,21 +48,25 @@ public class Team_P1 : MovingObject
                xDir = target . position . x > transform . position . x ? 1 : -1;
 
           AttemptMove<Player2> ( xDir , yDir );
+          //AttemptMove<Team_P2> ( xDir , yDir );
          
      }
     
      protected override void OnCantMove<T> (T component)
      {
-          if (component.CompareTag ("Player2"))
+         
+          if (component.gameObject.CompareTag ("Player2"))
           {
                Player2 hitPlayer2 = component as Player2;
                hitPlayer2 . LoseFood ( playerDamage );
+               Debug . Log ( component );
           }
           
-          else if (component.CompareTag ("Team_P2"))
+          else if (component.CompareTag ("Team2"))
           {
                Team_P2 hitTeam2 = component as Team_P2;
                hitTeam2 . LoseHealth ( playerDamage );
+               Debug . Log ( component );
           }          
          
           animator . SetTrigger ( "enemyAttack" );
@@ -70,11 +76,11 @@ public class Team_P1 : MovingObject
 
      public void LoseHealth ( int loss )
      {
-          //animator . SetTrigger ( "playerHit" );
+          animator . SetTrigger ( "enemyAttack" );
           health -= loss;
           //foodText1 . text = "-" + loss + " Food: " + food;
           //CheckIfGameOver ( );
-          if ( health == 0 )
+          if ( health <= 0 )
           {
                gameObject . SetActive ( false );
           }

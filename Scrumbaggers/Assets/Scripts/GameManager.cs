@@ -25,8 +25,12 @@ public class GameManager : MonoBehaviour
      public bool team2Turn = false;
 
      private Text levelText;
+     private Text winText;
+     private Text score1Total;
+     private Text score2Total;
      private GameObject levelImage;
-     private int level = 1;
+     private GameObject winImage;
+     private int level = 4;
      private List<Team_P1> team1;
      private List<Team_P2> team2;
      private bool team1Moving;
@@ -59,9 +63,14 @@ public class GameManager : MonoBehaviour
           doingSetup = true;
 
           levelImage = GameObject . Find ( "LevelImage" );
+          winImage = GameObject . Find ( "WinImage" );
           levelText = GameObject . Find ( "LevelText" ) . GetComponent<Text> ( );
-          levelText . text = "Round " + level;
+          winText = GameObject . Find ( "WinText" ) . GetComponent<Text> ( );
+          score1Total = GameObject . Find ( "Score1Total" ) . GetComponent<Text> ( );
+          score2Total = GameObject . Find ( "Score2Total" ) . GetComponent<Text> ( );
+          levelText . text = "Day " + level;
           levelImage . SetActive ( true );
+          winImage . SetActive ( false );
           Invoke ( "HideLevelImage" , levelStartDelay );
 
           team1 . Clear ( );
@@ -75,10 +84,19 @@ public class GameManager : MonoBehaviour
           doingSetup = false;
      }
 
+     private void HideWinText ( )
+     {
+          winText . enabled =  false;
+          doingSetup = false;
+     }
+
      public void GameOver ()
      {
-          levelText . text = "After " + level + " days, you starved.";
-          levelImage . SetActive( true );
+          winText . text = "After " + level + " days, you ran out of energy.";
+          score1Total . text = playerScorePoints.ToString();
+          score2Total . text = player2ScorePoints . ToString ( );
+          winImage . SetActive( true );
+          Invoke ( "HideWinText" , levelStartDelay * 2 );
           enabled = false;
      } 
      
@@ -120,7 +138,7 @@ public class GameManager : MonoBehaviour
 
           team1Moving = false;
           team1Turn = false;
-          player1Turn = true;
+          player2Turn = true;
      }
 
      IEnumerator MoveEnemies2 ( )
@@ -141,6 +159,6 @@ public class GameManager : MonoBehaviour
 
           team2Moving = false;
           team2Turn = false;
-          player2Turn = true;
+          player1Turn = true;
      }
 }

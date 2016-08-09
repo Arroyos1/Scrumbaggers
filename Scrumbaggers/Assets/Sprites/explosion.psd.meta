@@ -1,9 +1,21 @@
 fileFormatVersion: 2
 guid: 3bab06939ef6ffe4ca50fce46702ab25
-timeCreated: 1470143735
+timeCreated: 1470771678
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: explosion_0
+    21300002: explosion_1
+    21300004: explosion_2
+    21300006: explosion_3
+    21300008: explosion_4
+    21300010: explosion_5
+    21300012: explosion_6
+    21300014: explosion_7
+    21300016: explosion_8
+    21300018: explosion_9
+    21300020: explosion_10
+    21300022: explosion_11
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -49,7 +61,187 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: explosion_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448.6667
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.000061}
+        - {x: -0.25, y: -223.99994}
+        - {x: 217.75, y: -223.99994}
+        - {x: 217.75, y: 1.000061}
+    - name: explosion_1
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 448.6667
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.000061}
+        - {x: -0.25, y: -223.99994}
+        - {x: 217.75, y: -223.99994}
+        - {x: 217.75, y: 1.000061}
+    - name: explosion_2
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 448.6667
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.000061}
+        - {x: -0.25, y: -223.99994}
+        - {x: 217.75, y: -223.99994}
+        - {x: 217.75, y: 1.000061}
+    - name: explosion_3
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 448.6667
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.000061}
+        - {x: -0.25, y: -223.99994}
+        - {x: 217.75, y: -223.99994}
+        - {x: 217.75, y: 1.000061}
+    - name: explosion_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224.66667
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.0000153}
+        - {x: -0.25, y: -223.99998}
+        - {x: 217.75, y: -223.99998}
+        - {x: 217.75, y: 1.0000153}
+    - name: explosion_5
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 224.66667
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.0000153}
+        - {x: -0.25, y: -223.99998}
+        - {x: 217.75, y: -223.99998}
+        - {x: 217.75, y: 1.0000153}
+    - name: explosion_6
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 224.66667
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.0000153}
+        - {x: -0.25, y: -223.99998}
+        - {x: 217.75, y: -223.99998}
+        - {x: 217.75, y: 1.0000153}
+    - name: explosion_7
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 224.66667
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.0000153}
+        - {x: -0.25, y: -223.99998}
+        - {x: 217.75, y: -223.99998}
+        - {x: 217.75, y: 1.0000153}
+    - name: explosion_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.66667175
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.0000153}
+        - {x: -0.25, y: -223.99998}
+        - {x: 217.75, y: -223.99998}
+        - {x: 217.75, y: 1.0000153}
+    - name: explosion_9
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 0.66667175
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.0000153}
+        - {x: -0.25, y: -223.99998}
+        - {x: 217.75, y: -223.99998}
+        - {x: 217.75, y: 1.0000153}
+    - name: explosion_10
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 0.66667175
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.0000153}
+        - {x: -0.25, y: -223.99998}
+        - {x: 217.75, y: -223.99998}
+        - {x: 217.75, y: 1.0000153}
+    - name: explosion_11
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 0.66667175
+        width: 217.5
+        height: 224.33333
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -0.25, y: 1.0000153}
+        - {x: -0.25, y: -223.99998}
+        - {x: 217.75, y: -223.99998}
+        - {x: 217.75, y: 1.0000153}
     outline: []
   spritePackingTag: 
   userData: 
